@@ -22,9 +22,17 @@ controller: MessageCtrl
   </div>
 
   <div class="grid-block medium-9 vertical message">
-    <div class="grid-block message-content"> Message 1</div>
-    <div class="grid-block message-content"> Message 2</div>
-    <div class="grid-block message-content"> Message 3</div>
-    <div class="grid-block message-content"> Message 4</div>
+    <div class="message-content vertical clearfix" ng-repeat="message in allMessages">
+      <div>{{message.createdAt}}
+      </div>
+        <div class="grid-block horizontal">
+          <div class="grid-block">{{message.to.name}}</div>
+          <div class="grid-block">{{message.from.name}}</div>
+        </div>
+          <div>
+            <div class="content-text">{{message.content}}</div>
+          </div>
+    </div>
   </div>
+
 </div>

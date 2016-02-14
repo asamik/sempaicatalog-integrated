@@ -45,6 +45,7 @@ div.message-from-box, div.message-box{
 
 div.message-content {
   border-color: #B1BEDE;
+  min-height: 80px;
 }
 
 div.message-content {
@@ -57,6 +58,28 @@ div.message-title {
 
 div.message {
   padding: 1em;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+.clearfix:after {
+ content: " "; /* Older browser do not support empty content */
+ visibility: hidden;
+ display: block;
+ height: 0;
+ clear: both;
+}
+
+div.content-text {
+  text-align: left;
+  word-break: break-all;
+}
+
+div.message-box {
+  max-width: 1300px;
+  overflow-x: hidden;
 }
 
 a.signup.button {
@@ -235,7 +258,7 @@ h5.profile, table.profile, #emailus, div.message-title.title {
   height: 100vh;
 }
 
-img.about {
+img.about, div.medium-9.vertical.message {
   height: 100%;
 }
 

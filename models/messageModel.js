@@ -21,7 +21,7 @@ messageSchema.statics.addMessage = function(message, foundUsers, cb) {
     to: message.to,
     from: message.from,
     content: message.content,
-    createdAt: moment().unix()
+    createdAt: moment().format('llll')
   });
 
   newMessage.save((err, savedNewMessage) => {
@@ -30,7 +30,7 @@ messageSchema.statics.addMessage = function(message, foundUsers, cb) {
       toUserId: message.to,
       fromUserId: message.from,
       content: message.content,
-      createdAt: moment(message.createdAt).fromNow(),
+      createdAt: message.createdAt,
       toUserName: foundUsers.toUserName,
       toUserEmail: foundUsers.toUserEmail,
       fromUserName: foundUsers.fromUserName,
@@ -46,9 +46,8 @@ messageSchema.statics.addMessage = function(message, foundUsers, cb) {
 messageSchema.statics.getAllMessages = function(cb) {
   Message.find({}).populate('to from').exec((err, messages) => {
     if (err || !messages) return cb(err || 'messages not found')
-    console.log("MESSAGES", messages);
-  return cb(null, messages);
-  })
+    return cb(null, messages);
+  });
 }
 
 Message = mongoose.model('Message', messageSchema);

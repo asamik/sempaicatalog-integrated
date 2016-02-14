@@ -63,9 +63,13 @@
 		}
 
     $scope.allSpeakers = [];
+    
     UserSvc.getAllSpeakers()
     .then(function(resp) {
-    	$scope.allSpeakers = resp.data
+    	$scope.allSpeakers = resp.data;
+    })
+    .catch(function(err) {
+      console.log(err);
     });
   }
 })();
@@ -189,15 +193,35 @@
 
   angular.module('application').controller('MessageCtrl', MessageCtrl);
 
-  MessageCtrl.$inject = ['UserSvc', '$cookies', '$scope', '$rootScope', '$stateParams', '$state', '$controller', '$localStorage'];
+  MessageCtrl.$inject = ['UserSvc', '$cookies', '$scope', '$rootScope', '$stateParams', '$state', '$controller', '$localStorage', 'MessageSvc'];
 
-  function MessageCtrl(UserSvc, $cookies, $scope, $rootScope, $stateParams, $state, $controller, $localStorage) {
+  function MessageCtrl(UserSvc, $cookies, $scope, $rootScope, $stateParams, $state, $controller, $localStorage, MessageSvc) {
     angular.extend(this, $controller('DefaultController', {
       $scope: $scope,
       $stateParams: $stateParams,
       $state: $state
     }));
-  
+    
+    if (!$rootScope.amILoggedIn()) {
+      return $state.go('home');
+    }
+    $scope.$storage = $localStorage;
+
+    var userId = $scope.$storage.id;
+    $rootScope.id = userId;
+    $rootScope.token = $scope.$storage.token;
+
+    $scope.allMessages = [];
+
+    MessageSvc.loadAllMessages()
+    .then(function(resp) {
+      $scope.allMessages = resp.data;
+      
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+
   }
 })();
 
@@ -792,6 +816,23 @@ function userRow() {
       }
     };
   };
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('application').service('MessageSvc', MessageSvc);
+
+  MessageSvc.$inject = ['$http'];
+
+  function MessageSvc($http) {
+    var url = "http://localhost:3000";
+    // var url = 'https://lit-hamlet-87436.herokuapp.com';
+
+  this.loadAllMessages = function() {
+    return $http.get(url + '/messages');
+  }
+  }
 })();
 
 (function() {

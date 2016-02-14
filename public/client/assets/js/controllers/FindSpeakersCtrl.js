@@ -27,9 +27,13 @@
 		}
 
     $scope.allSpeakers = [];
+    
     UserSvc.getAllSpeakers()
     .then(function(resp) {
-    	$scope.allSpeakers = resp.data
+    	$scope.allSpeakers = resp.data;
+    })
+    .catch(function(err) {
+      console.log(err);
     });
   }
 })();

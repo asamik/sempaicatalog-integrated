@@ -25,7 +25,6 @@ router.post('/addmessage', (req, res) => {
 router.get('/', (req, res) => {
   Message.getAllMessages((err, messages) => {
     if(err || !messages) return res.status(400).send(err || "Cannot get all messages")
-  console.log("messagelist!", messages);
     res.send(messages);  
   });
 });
