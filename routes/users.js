@@ -29,9 +29,9 @@ router.get('/speaker/:speakerid',(req, res) => {
   })
 });
 
-router.get('/regiserform', (req, res) => {
-  res.sendFile('signup.html', { root: path.join(__dirname, '../public/build/templates')})
-})
+// router.get('/regiserform', (req, res) => {
+//   res.sendFile('signup.html', { root: path.join(__dirname, '../public/build/templates')})
+// })
 
 router.post('/checkemail', (req, res) => {
   User.findOne({email: req.body.email}, (err, user) => {

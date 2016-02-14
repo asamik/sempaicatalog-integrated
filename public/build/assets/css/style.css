@@ -34,6 +34,31 @@ div.filesize {
   }
 }
 
+div.message-content, div.message-from, div.message-from-box {
+  border-style: solid;
+}
+
+div.message-from-box, div.message-box{
+  border-color: #304476;
+  text-align: center;
+}
+
+div.message-content {
+  border-color: #B1BEDE;
+}
+
+div.message-content {
+  border-style: solid;
+}
+
+div.message-title {
+  display: inline-block;
+}
+
+div.message {
+  padding: 1em;
+}
+
 a.signup.button {
   min-width: 200px;
   margin: 2em;
@@ -198,7 +223,7 @@ button.confirm {
   background-color: '#D0AD45';
 }
 
-h5.profile, table.profile, #emailus {
+h5.profile, table.profile, #emailus, div.message-title.title {
   margin: 0 auto;
 }
 

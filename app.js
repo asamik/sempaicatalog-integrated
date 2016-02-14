@@ -39,9 +39,9 @@ app.use(cors(corsOptions));
 app.use('/users', require('./routes/users'));
 app.use('/admins', require('./routes/admins'));
 
-// app.all('/*', function(req, res, next) {
-//     res.sendFile('index.html', { root: path.join(__dirname, 'public/build') });
-// });
+app.all('/*', function(req, res, next) {
+    res.sendFile('index.html', { root: path.join(__dirname, 'public/build') });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
