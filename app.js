@@ -38,6 +38,7 @@ app.use(cors(corsOptions));
 
 app.use('/users', require('./routes/users'));
 app.use('/admins', require('./routes/admins'));
+app.use('/messages', require('./routes/messages'));
 
 app.all('/*', function(req, res, next) {
     res.sendFile('index.html', { root: path.join(__dirname, 'public/build') });

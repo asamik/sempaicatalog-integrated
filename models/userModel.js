@@ -106,7 +106,7 @@ userSchema.statics.register = function(userInfo, cb) {
 
   // create user model
   User.findOne({email: email}, (err, user) => {
-    if (err || user) return cb('error registering email');
+    if (err || user) return cb(err || 'error registering email');
     bcrypt.genSalt(CONFIG.saltRounds, (err, salt) => {
       if (err) return cb(err);
       bcrypt.hash(password, salt, (err, hashedPassword) => {
@@ -120,6 +120,7 @@ userSchema.statics.register = function(userInfo, cb) {
           region: userInfo.region
         });
         newUser.save((err, savedUser) => {
+          if (err) return cb(savedUser);
           savedUser.password = null;
           let userInfoWithToken = { id: savedUser._id, token: savedUser.token() };
           return cb(err, userInfoWithToken);
@@ -129,7 +130,7 @@ userSchema.statics.register = function(userInfo, cb) {
   });
 };
 
-userSchema.statics.edit = function(user, userid,cb) {
+userSchema.statics.edit = function(user, userid, cb) {
   let updatedUser = {
     name: user.name,
     position: user.position,
@@ -137,9 +138,26 @@ userSchema.statics.edit = function(user, userid,cb) {
     organization: user.organization
   }
   User.findByIdAndUpdate(userid, { $set: updatedUser }, {new: true}, (err, userAfterUpdate) => {
-        if (err || !user) return cb(err || 'user not found in update');
+    if (err || !user) return cb(err || 'user not found in update');
     cb(null, userAfterUpdate);
   })
+}
+
+userSchema.statics.checkUserForMessage = function(toUserId, fromUserId, cb) {
+  User.findOne({_id: toUserId}, (err, toUser) => {
+    if (err || !toUser) return cb(err || 'error finding user receiving message');
+    User.findOne({_id: fromUserId}, (err, fromUser) => {
+      if (err || !fromUser) return cb(err || 'error finding user sending message');
+        let foundUsers = {
+          toUserName: toUser.name,
+          toUserEmail: toUser.email,
+          fromUserName: fromUser.name,
+          fromUserEmail: fromUser.email
+        };
+        console.log("reached checkUserForMessage", foundUsers);
+        return cb(null, foundUsers);
+    });
+  });
 }
 
 User = mongoose.model('User', userSchema);

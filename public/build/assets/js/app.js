@@ -197,7 +197,7 @@
       $stateParams: $stateParams,
       $state: $state
     }));
-
+  
   }
 })();
 

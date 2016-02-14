@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose')
     , moment   = require('moment')
-    , CONFIG   = require('../util/authConfig')
+    , CONFIG   = require('../util/authConfig');
 
 let Schema = mongoose.Schema;
 

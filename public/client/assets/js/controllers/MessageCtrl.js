@@ -11,6 +11,6 @@
       $stateParams: $stateParams,
       $state: $state
     }));
-
+  
   }
 })();
