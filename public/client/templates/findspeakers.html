@@ -1,0 +1,27 @@
+---
+name: findspeakers
+url: /findspeakers
+controller: FindSpeakersCtrl
+---
+
+<div class="grid-block">
+	<route-loading-indicator />
+	<div ng-if='!isRouteLoading' class="grid-block" ng-view></div>
+	<div class="grid-block align-center text-center vertical">
+		<div class="grid-container">
+			<div class="grid-block align-spaced small-12">
+				<div class="grid-block align-center vertical">
+					<div class="grid-content">
+						<input type="text" placeholder="Find by name" ng-model="query.name">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="grid-block vertical medium-horizontal speaker-card-container">
+			<div class="grid-block small-12 medium-4 align-center" ng-repeat="speaker in allSpeakers| filter : query">
+				<speaker-card ng-if="allSpeakers.length" user={{speaker}}>
+			</speaker-card>
+		</div>
+	</div>
+</div>
+</div>

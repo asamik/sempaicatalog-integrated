@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sempai Catalog</title>
+  <link rel="shortcut icon" href="http://asamik.github.io/sempai-catalog-frontend/assets/etc/sempaiCatalog_smallLogo.png" />
+  <link type="text/css" media="screen" rel="stylesheet" href="./assets/responsive-tables.css" />
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./assets/css/app.css" type="text/css">
+  <link rel="stylesheet" href="./assets/css/sweetalert.css" type="text/css">
+  <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
+  <script src="./assets/js/foundation.js"></script>
+  <script src="./assets/js/templates.js"></script>
+  <script src="./assets/js/routes.js"></script>
+  <script src="./assets/js/app.js"></script>
+  <script src="./assets/responsive-tables.js"></script>
+</head>
+<body>
+  <div class="grid-frame vertical">
+    <div class="grid-block shrink" ng-controller="NavBarCtrl">
+      <div class="menu-group" id="headercontainer">
+        <div class="grid-block primary condense menu-bar align-justify medium-horizontal vertical">
+          <div class="grid-block medium-horizontal vertical">
+            <div class="grid-block">
+              <a ui-sref="home">
+                <img id="menu-logo" src="./assets/etc/sempaiCatalog_Logo_Fullversion.png" alt="">
+              </a>
+            </div>
+            <div class="grid-block horizontal align-right">
+              <div>
+                <div class="login loginlink" ng-if="amINotLoggedIn()">
+                  <a id="logintext" ui-sref="login">
+                    <div class="card menu-bar">
+                      <div class="card-section login">
+                        <nobr>
+                          <i class="fa fa-lock fa-lg"></i> &nbsp;
+                          <span ng-show="inJapanese()">ログイン</span>
+                          <span ng-show="!inJapanese()">Log In</span>
+                        </nobr>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div>
+                <a ng-click="switchLanguage(currentlanguage)"> 
+                  <div class="login loginlink">
+                    <div class="card menu-bar">
+                      <div class="card-section login">
+                        <img id="flag" ng-src="{{currentlanguage}}" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div ng-if="amILoggedIn()" class="menu-group-right">
+                <ul class="primary condense menu-bar">
+                  <li class="navbar-menu">
+                    <a class="navbar-menu" href="#" ui-sref="profile" ng-if="amILoggedIn()">
+                      <i class="fa fa-user fa-lg"></i>
+                      <span class="navbar-menu">My Page</span>
+                    </a>
+                  </li>
+                  <li class="navbar-menu">
+                    <a class="navbar-menu" href="#" ui-sref="findspeakers" ng-if="amILoggedIn()">
+                      <i class="fa fa-search fa-lg"></i>
+                      <span class="navbar-menu">Find Sempais</span>
+                    </a>
+                  </li>
+                  <li class="navbar-menu">
+                    <a class="navbar-menu" href="#" ui-sref="admin" ng-if="amILoggedIn() && amIAdmin()">
+                      <img zf-iconic="" icon="cog" class="nav-bar icon" size="small">
+                      <span class="navbar-menu">Admin</span>
+                    </a>
+                  </li>
+                  <li class="navbar-menu">
+                    <a class="navbar-menu" href="#" ng-click="logout()" ng-if="amILoggedIn()">
+                      <i class="fa fa-sign-out fa-lg"></i>
+                      <span class="navbar-menu">Logout</span>
+                      </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ui-view class="grid-block" id="grid-block-ui-view">
+    </div>
+  </div>
+</body>
+</html>

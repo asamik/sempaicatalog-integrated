@@ -1,0 +1,14 @@
+<div class="dark card grid-block vertical">
+	<div class="grid-block speaker-card-pic">
+		<img class="profileimage" ng-src="{{data.profilePic}}">
+	</div>
+	<div class="card-divider grid-block speakercard">
+		<h3 class="speakercard float-center">{{data.name}}</h3>
+	</div>
+	<div class="card-section grid-block">
+		<button class="moreinfo button radius" ui-sref="speakerprofile({speakerId: data._id})"> 
+			<span ng-show="inJapanese()">詳細プロフィール</span>
+			<span ng-show="!inJapanese()">More Information</span>
+		</button>
+	</div>
+</div>

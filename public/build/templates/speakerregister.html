@@ -1,0 +1,67 @@
+
+<div class="grid-block container" id="speakerregister">
+  <div class="grid-block vertical text-center signup">
+    <div>
+      <div class="grid-content">
+        <h5 class="signup">
+          <span ng-show="inJapanese()">センパイ用本登録フォーム</span>
+          <span ng-show="!inJapanese()">Speaker Registration Form</span>
+        </h5>
+        <h6>
+          <span ng-show="inJapanese()">あなたについてできるだけ詳しく教えてください</span>
+          <span ng-show="!inJapanese()">Tell us about yourself</span>
+        </h6>
+      </div>
+    </div>
+    <div class="vertical">
+      <div class="grid-block signup-profile-pic">
+        <div class="grid-content">
+          <img class="profileimage" ng-src="{{speakerImage()}}">
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="grid-content">
+          <form class="signup">
+            <input type="text" placeholder="{{inJapanese() ? 'お名前': 'Name'}}" ng-model="speaker.name">
+            <input type="text" placeholder="{{inJapanese() ? '会社名・所属先': 'Organization'}}" ng-model="speaker.organization">
+            <input type="text" placeholder="{{inJapanese() ? '役職': 'Position'}}" ng-model="speaker.position">
+            <input type="text" ng-attr-placeholder="{{inJapanese() ? 'お住まいの地域(国名・都道府県)': 'Your City'}}"  ng-model="speaker.region">
+            <input type="password" placeholder="{{inJapanese() ? 'パスワード': 'Password'}}" ng-model="speaker.password" >
+            <input type="password" placeholder="{{inJapanese() ? '確認用パスワード': 'Confirm password'}}" ng-model="speaker.confirmpassword" >
+            <span class="password-validation" ng-hide="!speaker.password || speaker.password === speaker.confirmpassword">
+              <span ng-show="inJapanese()">確認用パスワードが一致しません。</span>
+              <span ng-show="!inJapanese()">Password does not match</span>
+            </span>
+            <input type="text" placeholder="{{inJapanese() ? '専門分野': 'Expertise'}}" ng-model="speakerDetail.expertise" >
+              <zf-action-sheet id="my-actionsheet">
+                <zf-as-button>
+                  <span class="fancy-button">
+                    <a href="" class="fee-policy">
+                      <span ng-show="inJapanese()">※出張費用の記入例</span>
+                      <span ng-show="!inJapanese()">※How to write about your speaker fee policy</span>
+                    </a>
+                  </span>
+                </zf-as-button>
+                <zf-as-content position="top">
+                <span ng-show="inJapanese()">国内交通費のみ支給希望、応相談、近辺であれば無料で対応可能、遠方でも日時が合えば完全無料などご自身のご状況に合わせてご記入ください。</span>
+                <span ng-show="!inJapanese()"> (examples) "Please provide domestic transportation","Free of charge if the school is in the same city but please provide transportation fee beyond that", "Fixed hourly rate of xx dollars"</span>
+                </zf-as-content>
+              </zf-action-sheet>
+            <input type="text" placeholder="{{inJapanese() ? '出張・講演費用の目安': 'Speaker Fee Policy'}}" ng-model="speakerDetail.fee"　id="speakerfee">
+            <input type="text" placeholder="{{inJapanese() ? '一言紹介文': 'Describe yourself in one line'}}" ng-model="speakerDetail.header">
+            <input type="text" placeholder="{{inJapanese() ? '講演可能なアイディア': 'Topics you can give a talk about'}}" ng-model="speakerDetail.topics">
+            <input type="text" placeholder="{{inJapanese() ? '自己紹介': 'Self-introduction'}}" ng-model="speakerDetail.selfintroduction">
+            <input type="text" placeholder="{{inJapanese() ? 'ご出身大学、職歴、海外経験などのご経歴': 'Your Background'}}" ng-model="speakerDetail.background">
+            <input type="file" class="signup-captions" ng-model="speakerpic" ng-change="isPicSizeAlright()" base-sixty-four-input>
+          </form>
+          <div class="filesize signup-captions">{{inJapanese() ? '*最大ファイル容量：2MB': '*Max file size is 2MB'}}</div>
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="grid-content">
+          <a class="signup button" ng-click="allDone(speaker, speakerDetail)" ng-class="{disabled: !validate() || registerInProgress}">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>    
+</div>

@@ -1,0 +1,69 @@
+---
+name: login
+url: /login
+controller: LoginCtrl
+---
+
+<div class="grid-block" id="loginpage">
+  <route-loading-indicator />
+  <div ng-if='!isRouteLoading' ng-view></div>
+  <div class="grid-block clearfix align-right">
+    <div class="grid-block">
+      <div class="grid-container">
+        <div id="logincard" class="grid-block vertical align-center">
+          <div class="grid-content">
+            <div class="card login grid-block vertical">
+              <div class="grid-block">                
+                <div id="login-formcard" class="card-section grid-container">
+                    <div>
+                      <div class="grid-content">
+                        <h5 class="login-title">
+                          <span ng-show="inJapanese()">ログイン</span>
+                          <span ng-show="!inJapanese()">Login</span>
+                        </h5>
+                      </div>
+                    </div>
+                  <div class="grid-content">
+                    <div class="grid-block clearfix">
+                      <form class="grid-block login-form" ng-submit="loginUser()">
+                        <div class="grid-block align-center">
+                          <input type="text" class="inputbox login" ng-model="login.email" placeholder="email" required>
+                          <input type="password" class="inputbox login" ng-model="login.password" placeholder="password" requred>
+                          <a class="button login" ng-click="loginUser()" ng-class="{disabled: !login.email || !login.password, disabled: logInProgress}">
+                            <span ng-show="inJapanese()">
+                              {{logInProgress ? "プロセス中..." : "ログイン"}}
+                            </span>
+                            <span ng-show="!inJapanese()">
+                              {{logInProgress ? "Processing..." : "Submit"}}
+                            </span>
+                          </a>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-block">
+                <div class="grid-container">
+                  <a ui-sref="home" class="go-back-to-signin">
+                    <span class="back-to-signup" ng-show="inJapanese()">
+                      新規登録
+                    </span>
+                    <span class="back-to-signup" ng-show="!inJapanese()"> Don't have an account? Sign up
+                    </span>
+                  </a>                  
+                </div>
+              </div>
+              <div class="grid-block">                
+                <div class="grid-container">
+                  <error-message type="loginError"></error-message>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

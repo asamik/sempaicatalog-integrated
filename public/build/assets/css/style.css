@@ -1,0 +1,371 @@
+body, #grid-block-ui-view, #speakerregister, #homepage, #loginpage, .grid-frame {
+  overflow: scroll !important;
+  height: 100%;
+}
+
+div.grid-content.ui {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+#flag {
+  min-width: 45px;
+}
+
+div.filesize {
+  font-size: 0.8em;
+}
+
+@media(max-width: 600px) {
+  span.back-to-signup {
+    font-size: 0.5em;
+  }
+  span.signup {
+    font-size: 0.8em;
+  }
+  #profile-card {
+    max-width: 100% !important;
+  }
+  .login.card {
+  width: 100vw !important;
+  }
+  span.navbar-menu {
+    font-size: 0.8em;
+  }
+}
+
+a.signup.button {
+  min-width: 200px;
+  margin: 2em;
+}
+
+#homepage, #loginpage {
+  background-repeat: no-repeat;
+  width: 100%;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center center;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+h3.start-copy, footer {
+  margin: 0 auto;
+  color: white;
+}
+
+.fa.fa-lock.fa-lg, #logintext, h3.home, h5.signup, i.fa.fa-lg, h5.login-title {
+  font-weight: 900;
+  font-size: 1em;
+}
+
+h3.about {
+  font-weight: 900;
+}
+
+div.about {
+  max-width: 900px;
+  margin: 3em auto;
+}
+
+.menu-group.primary .menu-bar > li > a, .fa.fa-lock.fa-lg, #logintext, h3.home, h5.signup, h5.login-title, i.fa.fa-lg, h3.about, div.social-media {
+  color:#304476 !important;
+}
+
+div.start-copy {
+  margin: 2em auto;
+  text-align: center;
+  background-color: #304476;
+  height: 150px;
+  padding: 3em;
+}
+
+small {
+  font-size: 80%;
+  color: white;
+}
+
+#profile-card, #profileeditbtn {
+  max-width: 30%; 
+}
+
+#profile-card {
+  background-color: #E1E5F0;
+  margin: 1em auto;  
+}
+
+.speaker-card-container, #basicModal {
+  overflow: scroll;
+}
+
+#login-formcard {
+  width: 70%;
+}
+
+#form.signup, div.grid-block.vertical.text-center.signup {
+  width: 80vw;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+span.password-validation {
+  color: red;
+  font-weight: 900;
+  height: 200px;
+}
+
+#signup-form {
+  min-height: 380px;
+}
+
+.go-back-to-signin {
+  text-decoration: underline;
+}
+
+div.start-page {
+  background-size: cover;
+  width: 100%;
+  min-height: 900px;
+  background-image: url("image/flower.jpg");
+}
+
+#loginpage {
+  background-image: url("image/river-and-street.jpg");
+}
+
+#signup {
+  background-image: url("image/university-life.jpg");
+}
+#speakerregister {
+  background-image: url("image/street.jpg");
+}
+
+#speakerregister, #signup {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.menu-bar.primary, .menu-group.primary {
+  background-color: #FFFFFF !important;
+}
+
+.medium-up-3 {
+  overflow: scroll !important;
+}
+
+a.fee-policy, .signup-captions {
+  color: white;
+  font-weight: 900;
+}
+
+h7 {
+  font-size: x-small;
+}
+
+#profileeditbtn {
+  width: 50vw;
+}
+
+form.login-form {
+  width: 20vw !important;
+  margin: 1em auto !important;
+}
+
+div.login.card {
+  width: 40vw;
+}
+
+div.login.card, div.signup.card {
+  padding: 10px;
+  background-color: #D9E3FC;
+  max-width: 400px;
+  opacity: 0.85;
+  margin-top: 1em;
+}
+
+h5.editmodal, footer, h5.login-title {
+  text-align: center;
+}
+
+#my-actionsheet {
+  display: block;
+  text-align: left !important;
+}
+
+button.confirm {
+  background-color: '#D0AD45';
+}
+
+h5.profile, table.profile, #emailus {
+  margin: 0 auto;
+}
+
+#menu-logo {
+  min-width: 370px;
+}
+
+.grid-container.modal {
+  height: 100vh;
+}
+
+img.about {
+  height: 100%;
+}
+
+#editPic {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.grid-container.moreinfo {
+  padding: 0px;
+}
+
+.inputbox, input {
+  margin-left:20px;
+  border-radius: 5px !important;
+}
+
+.loginlink {
+  /*position: absolute;*/
+  right: 10px;
+}
+
+footer, .loginlink  {
+  padding: 10px;
+}
+
+#headercontainer, #profileblock {
+  margin: 0px !important;
+  width: 100%;
+}
+
+body,h1,h3,.forgotpassword,.navbar-menu,#heading {
+  font-family: "Hiragino Kaku Gothic ProN";
+}
+
+.profileimage {
+  object-fit: cover;
+  margin: 0 auto;
+  height: 100%;
+}
+
+div.signup.zf-tab, div.social-media, div.signup-button, h5.signup {
+  margin: 1em auto;
+}
+
+svg, footer {
+  background-color: #304476;
+}
+
+.card.menu-bar {
+  height: 62px;
+}
+
+li.navbar-menu {
+  margin: 0 auto;
+}
+
+.navbar-menu {
+  line-height: 150% !important;
+}
+
+.menu-bar > li > a {
+  padding: 0 auto !important;
+}
+
+.inline-label {
+  margin-top: 0 !important; 
+}
+
+.card-divider {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.card-divider.speakercard {
+  height: 50px;
+}
+
+.heading {
+  width: 0px;
+}
+
+h3.speakercard {
+  font-weight: 900;
+  font-size: 1em;
+  margin: 0 auto;
+}
+
+div.speaker-card-pic {
+  height: 200px;
+  max-width:251px;
+}
+
+li.navbar-menu:hover, div.login.card-section:hover, a.navbar-menu:hover {
+  background: #F3ED7D !important;
+  color: #242A4E;
+}
+
+div.grid-block.vertical.signup, div.signup-profile-pic {
+  margin-bottom: 1.5em;
+}
+
+.grid-block.vertical > .grid-content {
+  margin: 0 auto !important;
+}
+
+h3.home, span.navbar-menu {
+  text-align: center;
+  color: #242A4E;
+}
+
+li.moreinfo,.labelformoreinfo {
+  font-size: 1.3vw;
+  text-align: left;
+}
+
+ul {
+  list-style-type:none;
+}
+
+.button.start {
+  border-color: #DEBC37 !important;
+  border-style: solid !important;
+  border-width: 3px; 
+}
+
+#inside-modal {
+  background: #B1BEDE;
+  opacity: 0.8;
+  height: 100%;
+}
+
+.button {
+  margin: 0 auto;
+  background-color: #F3ED7D;
+  color: black;
+  border-radius: 5px;
+  font-weight: 900 !important;
+}
+
+.medium-5.grid-block, div.social-media, div.profile-edit {
+  margin: 1em auto;
+  text-align: center;
+}
+
+button.moreinfo {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #F2D25B;
+}
+
+.editbtn,.makeadmin,.deletebtn {
+  text-align: center;
+}
+
+div.dark.card.grid-block {
+  background-color: #FAF9EB !important;
+}

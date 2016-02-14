@@ -1,0 +1,104 @@
+---
+name: home
+url: /
+controller: HomeCtrl
+---
+
+<div class="grid-block vertical" id="homepage">
+  <div class="grid-block vertical">
+    <div class="start-page">
+      <div class="grid-block start-copy">
+        <h3 class="start-copy">
+          <span ng-show="inJapanese()">世界で活躍している人を、教室に呼ぼう。</span>
+          <span ng-show="!inJapanese()">Inspire your students by connecting them to inspirational people.</span>
+        </h3>
+      </div>
+      <div class="grid-block clearfix align-right">
+        <div class="grid-block">
+          <div class="grid-container">
+            <div class="grid-block vertical">
+              <div class="grid-content">
+                <div class="card signup grid-block">
+                  <div class="card-section grid-container">
+                    <form name="signUpEmail">
+                      <input type="text" class="inputbox" placeholder="email" ng-model="email" required>
+                      <form class="grid-block signup-form">
+                        <input type="radio" ng-model="category" value="teacher" checked> 
+                        <span ng-show="inJapanese()">教員として登録します。
+                        </span>
+                        <span ng-show="!inJapanese()">Join as a teacher
+                        </span>
+                        <br><br><br>
+                        <input type="radio" ng-model="category" value="sempai"> 
+                        <span ng-show="inJapanese()">「Sempai」として登録します。</span>
+                        <span ng-show="!inJapanese()">Join as a mentor</span>
+                        <br>
+                        <br>
+                      </form>
+                      <br>
+                      <br>
+                        <a class="button start" ui-sref="message"></a>
+
+                      <div class="grid-block">
+                        <a class="button start" ng-click="proceedToSignup()" ng-class="{disabled: !email, disabled: signUpInProgress}">
+                          <span class="signup" ng-show="inJapanese()">
+                            {{signUpInProgress ? "プロセス中..." : "新規登録"}}
+                          </span>
+                          <span class="signup" ng-show="!inJapanese()">
+                            {{signUpInProgress ? "Processing..." : "Join Now"}}
+                          </span>
+                        </a>
+                      </div>
+                    </form>
+                    <br>
+                    <br>
+                    <h7>
+                      <span ng-show="inJapanese()">※このサービスは教員の方専用です※
+                      </span>
+                      <span ng-show="!inJapanese()">
+                      This service is available only for teachers.
+                      </span>
+                    </h7>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-block">
+                <error-message type="signupError"></error-message>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vertical about">
+      <div class="grid-block">
+        <span ng-show="inJapanese()">
+          <h3 class="about">Sempai Catalogとは？</h3>
+          <H5 class="about">生徒に国際的なキャリアを視野に入れてほしいとお考えの先生方が、実際に国際的に活躍する20-30代のプロフェッショナルをご自分の教室に招いて講演依頼をすることができる先生限定の無料サービスです。Sempai Catalogに登録すれば、登録されている「センパイ」それぞれのプロフィールや講演可能なテーマ例などを見ることができます。<br>生徒さんが「こんな大人になって世界に出てみたい！」と思える人に出会うきっかけを作ってみませんか？
+          </H5>
+        </span>
+        <span ng-show="!inJapanese()">
+          <h3 class="about">What is Sempai Catalog?</h3>
+          <H5 class="about">To broaden students' awareness of international issues and opportunities, Sempai Catalog connects teachers with young professionals who have international careers.  Sign up to the Sempai Catalog, and you will have free access to information about featured speakers including their profile and background.  &nbsp;Inspire your students by connecting them to inspirational people.</H5>
+          <h7>*"Sempai" means mentors in Japanese.</h7>
+        </span>
+      </div>
+      <div class="grid-block">
+        <img class="about" src="http://asamik.github.io/sempai-catalog-frontend/assets/css/image/sc-diagram.png">
+      </div>
+    </div>
+    <div class="social-media about">
+      <span ng-show="inJapanese()">
+        <h3 class="about">ご質問・ご意見はこちらへお願いいたします</h3>
+      </span>
+      <span ng-show="!inJapanese()">
+        <h4 class="about">Questions or suggestions? Email us!</h4>
+      </span>
+      <div id="emailus">
+        <a href="mailto:sempai.catalog@gmail.com" target="newwindow">
+          <i class="fa fa-envelope-o fa-3x"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

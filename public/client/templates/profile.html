@@ -1,0 +1,245 @@
+---
+name: profile
+url: /profile
+controller: ProfileCtrl
+---
+
+<div id="profileblock" class="grid-block　medium-horizontal vertical">
+  <route-loading-indicator />
+  <div ng-if='!isRouteLoading' ng-view></div>
+  <div class="card grid-block vertical" id="profile-card">
+    <div class="grid-block">
+      <div class="card-section grid-container">
+        <div class="grid-block">
+          <div class="grid-block">
+            <h5 class="profile">
+              <span ng-show="inJapanese()">こんにちは、 {{user.name}}さん</span>
+              <span ng-show="!inJapanese()">Hi there, {{user.name}}</span>
+            </h5>
+          </div>
+        </div>
+        <div class="grid-block" ng-if='isSpeaker()'>
+          <div class="grid-block">
+            <img class="profileimage" ng-src="{{speakerDetail.profilePic}}">
+          </div>
+        </div>
+        <div class="grid-block">
+          <div class="grid-block">
+            <table role="responsives" class="profile">
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">名前</span>
+                      <span ng-show="!inJapanese()">Name</span>
+                    </strong>
+                  </td>
+                  <td>{{user.name}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">所属先</span>
+                      <span ng-show="!inJapanese()">Organization</span>
+                    </strong>
+                  </td>
+                  <td>{{user.organization}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">役職</span>
+                      <span ng-show="!inJapanese()">Position</span>
+                    </strong>
+                  </td>
+                  <td>{{user.position}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">お住まいのエリア(国名・都道府県)</span>
+                      <span ng-show="!inJapanese()">Your City</span>
+                    </strong>
+                  </td>
+                  <td>{{user.region}}</td>
+                </tr>
+                <tr ng-if='isSpeaker()'>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">専門分野</span>
+                      <span ng-show="!inJapanese()">Expertise</span>
+                    </strong>
+                  </td>
+                  <td>{{speakerDetail.expertise}}</td>
+                </tr>
+                <tr ng-if='isSpeaker()'>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">出張費用のポリシー</span>
+                      <span ng-show="!inJapanese()">Fee</span>
+                    </strong>
+                  </td>
+                  <td>{{speakerDetail.fee}}</td>
+                </tr>
+                <tr ng-if='isSpeaker()'>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">一言紹介文</span>
+                      <span ng-show="!inJapanese()">About yourself in one line</span>
+                    </strong>
+                  </td>
+                  <td>{{speakerDetail.header}}</td>
+                </tr>
+                <tr ng-if='isSpeaker()'>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">お話いただける内容の例</span>
+                      <span ng-show="!inJapanese()">Topics you can talk about</span>
+                    </strong>
+                  </td>
+                  <td>{{speakerDetail.topics}}</td>
+                </tr>
+                <tr ng-if='isSpeaker()'>
+                  <td>
+                    <strong>
+                      <span ng-show="inJapanese()">自己紹介文</span>
+                      <span ng-show="!inJapanese()">Self-introduction</span>
+                    </strong></td>
+                    <td>{{speakerDetail.selfintroduction}}</td>
+                  </tr>
+                  <tr ng-if='isSpeaker()'>
+                    <td>
+                      <strong>
+                        <span ng-show="inJapanese()">経歴</span>
+                        <span ng-show="!inJapanese()">Background</span>
+                      </strong>
+                    </td>
+                    <td>{{speakerDetail.background}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="grid-block">
+    <div class="grid-block">
+      <a zf-open="basicModal" id="profileeditbtn" class="button" ng-click="initializeModal()">
+         <span ng-show="inJapanese()">プロフィールを変更</span>
+         <span ng-show="!inJapanese()">Edit Profile Info</span>
+      </a>
+      <div zf-modal="basicModal" id="basicModal">
+        <div id="inside-modal">
+          <a zf-close="basicModal" class="close-button">×</a>
+          <div class="grid-block">
+            <div class="grid-content">
+              <h5 class="editmodal">
+                <span ng-show="inJapanese()">編集画面</span>
+                <span ng-show="!inJapanese()">Edit</span>
+              </h5>
+            </div>
+          </div>
+          <div class="grid-block">
+            <div class="grid-content">
+              <label>
+                <span ng-show="inJapanese()">名前</span>
+                <span ng-show="!inJapanese()">Name</span>
+              </label>
+              <input type="text" ng-model="updateduser.name">
+            </div>
+          </div>
+          <div class="grid-block">
+            <div class="grid-content">
+              <label>
+                <span ng-show="inJapanese()">所属先</span>
+                <span ng-show="!inJapanese()">Organization</span>
+              </label>
+              <input type="text" ng-model="updateduser.organization">
+            </div>
+          </div>
+          <div class="grid-block">
+            <div class="grid-content">
+              <label>
+                <span ng-show="inJapanese()">役職</span>
+                <span ng-show="!inJapanese()">Position</span>
+              </label>
+              <input type="text" ng-model="updateduser.position">
+            </div>
+          </div>
+          <div class="grid-block">
+            <div class="grid-content">
+               <label>
+                <span ng-show="inJapanese()">お住まいのエリア</span>
+                <span ng-show="!inJapanese()">Your City</span>
+              </label>
+              <input type="text" ng-model="updateduser.region">
+            </div>
+          </div>
+          <div class="grid-block" ng-if='isSpeaker()'>
+            <div class="grid-content">
+              <label>
+                <span ng-show="inJapanese()">専門分野</span>
+                <span ng-show="!inJapanese()">Expertise</span>
+              </label>
+              <input type="text" ng-model="updatedspeakerDetail.expertise">
+            </div>
+          </div>
+          <div class="grid-block" ng-if='isSpeaker()'>
+            <div class="grid-content">
+              <label>
+                <span ng-show="inJapanese()">出張費用の目安</span>
+                <span ng-show="!inJapanese()">Fee Policy</span>
+              </label>
+            <input type="text" ng-model="updatedspeakerDetail.fee">
+            </div>
+          </div>
+          <div class="grid-block" ng-if='isSpeaker()'>
+            <div class="grid-content">
+              <label>
+                <span ng-show="inJapanese()">一言紹介文</span>
+                <span ng-show="!inJapanese()">About yourself in a line</span>
+              </label>
+            <input type="text" ng-model="updatedspeakerDetail.header">
+            </div>
+          </div>
+          <div class="grid-block" ng-if='isSpeaker()'>
+            <div class="grid-content">
+              <label>
+                <span ng-show="inJapanese()">お話いただける内容の例</span>
+                <span ng-show="!inJapanese()">Topics you can talk about</span>
+              </label>
+              <input type="text" ng-model="updatedspeakerDetail.topics">
+            </div>
+          </div>
+          <div class="grid-block" ng-if='isSpeaker()'>
+            <div class="grid-content">
+              <label>
+                <span ng-show="inJapanese()">自己紹介文</span>
+                <span ng-show="!inJapanese()">Self-introduction</span>
+              </label>
+              <input type="text" ng-model="updatedspeakerDetail.selfintroduction">
+            </div>
+          </div>
+          <div class="grid-block" ng-if='isSpeaker()'>
+            <div class="grid-content">
+                <label>
+                  <span ng-show="inJapanese()">ご経歴</span>
+                  <span ng-show="!inJapanese()">Background</span>
+                </label>
+                <input type="text" ng-model="updatedspeakerDetail.background">
+            </div>
+          </div>
+          <div class="grid-block profile-edit">
+            <div class="grid-content">
+              <a zf-close=""　id="savechanges" class="button signup" ng-click="saveChanges()">
+                  <span ng-show="inJapanese()">変更を保存する</span>
+                  <span ng-show="!inJapanese()">Save Changes</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>

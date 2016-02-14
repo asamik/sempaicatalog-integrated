@@ -1,0 +1,45 @@
+
+<div class="grid-block container" id="signup">
+  <div class="grid-block vertical text-center signup">
+    <div>
+      <div class="grid-content">
+        <h5 class="signup">
+          <span ng-show="inJapanese()">本登録フォーム</span>
+          <span ng-show="!inJapanese()">Join us now</span>
+        </h5>
+      </div>
+    </div>
+    <div class="vertical">
+      <div class="grid-block" id="signup-form">
+        <div class="grid-content">
+          <form class="signup">
+            <input type="text" ng-attr-placeholder="{{inJapanese() ? '氏名': 'Name'}}" ng-model="user.name">
+            <input type="text" ng-attr-placeholder="{{inJapanese() ? '学校名': 'School Name'}}" ng-model="user.organization">
+            <input type="text" ng-attr-placeholder="{{inJapanese() ? '役職': 'Position'}}"  ng-model="user.position">
+            <input type="text" ng-attr-placeholder="{{inJapanese() ? 'お住まいの地域(国名・都道府県)': 'Your City'}}"  ng-model="user.region">
+            <input type="password" ng-attr-placeholder="{{inJapanese() ? 'パスワード': 'Password'}}" ng-model="user.password" required>
+            <input type="password" ng-attr-placeholder="{{inJapanese() ? '確認用パスワード': 'Confirm password'}}" ng-model="user.confirmpassword" required>
+            <span class="password-validation" ng-hide="!user.password || user.password === user.confirmpassword">
+              <span ng-show="inJapanese()">確認用パスワードが一致しません。</span>
+              <span ng-show="!inJapanese()">Password does not match the confirm password</span>
+            </span>
+          </form>
+        </div>
+      </div>
+      <div class="grid-block signup-button">
+        <div class="grid-content">
+          <a class="signup button" ng-click="allDone(user)" ng-class="{disabled: !validateUserInput() || signUpProgress}">
+            <span ng-show="inJapanese()">
+              {{signUpProgress ? "登録中..." : "登録する"}}
+            </span>
+            <span ng-show="!inJapanese()">
+              {{signUpProgress ? "Signing up..." : "Sign up"}}
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="grid-block signup-page-image">
+      </div>
+    </div>
+  </div>
+</div>    

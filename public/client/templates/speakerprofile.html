@@ -1,0 +1,124 @@
+---
+name: speakerprofile
+url: /speakerprofile/:speakerId
+controller: SpeakerProfileCtrl
+---
+
+<div class="grid-container">
+  <div class="grid-block vertical">
+    <div class="grid-block vertical">
+      <div class="grid-content text-center">
+        <h3>
+          <span ng-show="inJapanese()">{{speaker.name}}さんのプロフィール</span>
+          <span ng-show="!inJapanese()">{{speaker.name}}'s Information</span>
+        </h3>
+      </div>
+    </div>
+    <div class="grid-block spaced">
+      <div class="medium-5 grid-block">
+        <div class="grid-content">
+          <img class="profileimage" ng-src={{speaker.profilePic}}>
+        </div>
+      </div>
+      <div class="medium-7 small-12 grid-block vertical">
+        <div class="grid-block vertical">
+          <div class="grid-container">
+            <div class="grid-block">
+              <div class="grid-content">
+                <table role="responsive">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>
+                          <span ng-show="inJapanese()">名前</span>
+                          <span ng-show="!inJapanese()">Name</span>
+                        </strong>
+                      </td>
+                      <td>{{speaker.name}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Email</strong>
+                      </td>
+                      <td>{{speaker.email}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>
+                          <span ng-show="inJapanese()">所属先</span>
+                          <span ng-show="!inJapanese()">Organization</span>
+                        </strong>
+                      </td>
+                      <td>{{speaker.organization}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>
+                          <span ng-show="inJapanese()">役職</span>
+                          <span ng-show="!inJapanese()">Position</span>
+                        </strong>
+                      </td>
+                      <td>{{speaker.position}}</td>
+                    </tr>
+                    <tr ng-if='isSpeaker()'>
+                      <td>
+                        <strong>
+                          <span ng-show="inJapanese()">専門分野</span>
+                          <span ng-show="!inJapanese()">Expertise</span>
+                        </strong>
+                      </td>
+                      <td>{{speaker.expertise}}</td>
+                    </tr>
+                    <tr ng-if='isSpeaker()'>
+                      <td>
+                        <strong>
+                          <span ng-show="inJapanese()">出張費用のポリシー</span>
+                          <span ng-show="!inJapanese()">Fee</span>
+                        </strong>
+                      </td>
+                      <td>{{speaker.fee}}</td>
+                    </tr>
+                    <tr ng-if='isSpeaker()'>
+                      <td><strong>
+                        <span ng-show="inJapanese()">一言紹介文</span>
+                        <span ng-show="!inJapanese()">About yourself in one line</span>
+                      </strong></td>
+                      <td>{{speaker.header}}</td>
+                    </tr>
+                    <tr ng-if='isSpeaker()'>
+                      <td>
+                        <strong>
+                          <span ng-show="inJapanese()">お話いただける内容の例</span>
+                          <span ng-show="!inJapanese()">Topics you can talk about</span>
+                        </strong>
+                      </td>
+                      <td>{{speaker.topics}}</td>
+                    </tr>
+                    <tr ng-if='isSpeaker()'>
+                      <td>
+                        <strong>
+                          <span ng-show="inJapanese()">自己紹介文</span>
+                          <span ng-show="!inJapanese()">Self-introduction</span>
+                        </strong>
+                      </td>
+                      <td>{{speaker.selfintroduction}}</td>
+                    </tr>
+                    <tr ng-if='isSpeaker()'>
+                      <td>
+                        <strong>
+                          <span ng-show="inJapanese()">経歴</span>
+                          <span ng-show="!inJapanese()">Background</span>
+                        </strong>
+                      </td>
+                      <td>{{speaker.background}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

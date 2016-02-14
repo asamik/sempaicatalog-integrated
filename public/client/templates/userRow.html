@@ -1,0 +1,52 @@
+<td class='username'>{{user.name}}</td>
+<td class='email'>{{user.email}}</td>
+<td class='phone'>{{user.phone}}</td>
+<td class='address'>{{user.address}}</td>
+<td class='avatar'><img src="{{user.profilePic}}" alt="profilepic" width="50px"></td>
+<td class='editbtn'>
+  <a zf-open="{{user.email}}"><i class="fa fa-pencil"></i></a>
+  <div zf-modal="" id="{{user.email}}">
+    <div class="grid-block vertical">
+      <div class="grid-block">
+        <div class="grid-content">
+          <h1>Editing...</h1>
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="grid-block">
+          <div class="grid-content">
+            <label>Name</label>
+            <input type="text" ng-model="updatedUser.name">
+          </div>
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="grid-block">
+          <div class="grid-content">
+            <label>Email</label>
+            <input type="text" ng-model="updatedUser.email">
+          </div>
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="grid-block">
+          <div class="grid-content">
+            <label>Phone</label>
+            <input type="text" ng-model="updatedUser.phone">
+          </div>
+        </div>
+      </div>
+      <div class="grid-block">
+        <div class="grid-block">
+          <div class="grid-content">
+            <label>Address</label>
+            <input type="text" ng-model="updatedUser.address">
+          </div>
+        </div>
+      </div>
+      <a zf-close="" class="button" ng-click="editUser()">Save Changes</a>
+    </div>
+  </div>
+</td>
+<td class='makeadmin' ng-click='makeAdmin(user)'><i class="fa fa-lock"></i></td>
+<td class='deletebtn' ng-click='removeUser(user)'><i class="fa fa-trash"></i></td>

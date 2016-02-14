@@ -1,0 +1,29 @@
+@import "settings";
+@import "foundation";
+@import "font-awesome";
+
+td, th {
+font-size: 15px;
+text-align: center;
+}
+
+.menu-bar > li > img:first-child:last-child {
+margin: 40%;
+}
+
+h3.nameonfriendcard {
+	@include breakpoint(medium) {
+	font-size: 2vw;    
+	}
+	@include breakpoint(small) {
+	font-size: 4vw;    
+	}
+}
+
+.grid-block {
+overflow: visible;
+}
+
+.tab-contents, .tabs .tab-item, .modal {
+padding: 0;
+}
