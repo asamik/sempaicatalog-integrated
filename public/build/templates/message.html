@@ -1,6 +1,7 @@
 
 
 <div class="grid-block horizontal message-box">
+
   <div class="grid-block medium-3 vertical message">
     <div class="grid-block align-justify horizontal message-from-box">
       <div class="message-title title">
@@ -16,8 +17,8 @@
     <div class="grid-block message-from"> Message 4</div>
   </div>
 
-  <div class="grid-block medium-9 vertical message">
-    <div class="message-content vertical clearfix" ng-repeat="message in allMessages">
+  <div class="grid-block medium-9 vertical message" >
+    <div class="message-content vertical clearfix" ng-repeat="message in allMessages | filter : userId">
       <div>{{message.createdAt}}
       </div>
         <div class="grid-block horizontal">
@@ -28,6 +29,13 @@
             <div class="content-text">{{message.content}}</div>
           </div>
     </div>
-  </div>
+    <form>
+      <input type="text" ng-model="message.content">
+      <a class="signup button" ng-click="sendMessage(message)"> Send Message
+      </a>
+    </form>
 
+  </div>
+  <a id="bottom">
+  </a>
 </div>

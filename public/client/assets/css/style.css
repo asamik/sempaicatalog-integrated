@@ -34,6 +34,17 @@ div.filesize {
   }
 }
 
+///
+div.medium-9.vertical.message {
+  height: 100%;
+}
+
+[scroll-glue] {
+  /*height: 100px;*/
+  overflow-y: scroll;
+  border: 1px solid gray;
+}
+
 div.message-content, div.message-from, div.message-from-box {
   border-style: solid;
 }
@@ -258,7 +269,7 @@ h5.profile, table.profile, #emailus, div.message-title.title {
   height: 100vh;
 }
 
-img.about, div.medium-9.vertical.message {
+img.about {
   height: 100%;
 }
 

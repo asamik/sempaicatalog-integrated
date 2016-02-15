@@ -12,5 +12,9 @@
   this.loadAllMessages = function() {
     return $http.get(url + '/messages');
   }
+  this.sendMessage = function() {
+    return $http.post(url + '/messages/addmessage', message);
+  }
+
   }
 })();
