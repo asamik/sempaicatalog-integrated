@@ -34,41 +34,45 @@ div.filesize {
   }
 }
 
-///
 div.medium-9.vertical.message {
   height: 100%;
 }
 
-[scroll-glue] {
-  /*height: 100px;*/
-  overflow-y: scroll;
-  border: 1px solid gray;
+form.messageInput {
+  margin-top: 2em;
 }
 
-div.message-content, div.message-from, div.message-from-box {
+input.message {
+  height: 4em;
+}
+
+div.created-at {
+  color: #B1BEDE;
+  font-size: 0.8em;
+}
+
+div.message-from, div.message-from-box, div.message-content-text, div.medium-9.vertical.message {
   border-style: solid;
+  border-color: #D1D9ED;
+  border-width: 1px;
 }
 
 div.message-from-box, div.message-box{
-  border-color: #304476;
   text-align: center;
 }
 
 div.message-content {
-  border-color: #B1BEDE;
   min-height: 80px;
-}
 
-div.message-content {
-  border-style: solid;
+}
+div.message-content-text {
+  border-radius: 10px;
+  margin: 10px;
+  padding: 1em;
 }
 
 div.message-title {
   display: inline-block;
-}
-
-div.message {
-  padding: 1em;
 }
 
 .clearfix {

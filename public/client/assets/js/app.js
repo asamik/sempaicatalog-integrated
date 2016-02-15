@@ -8,6 +8,7 @@
     'naif.base64',
     'ngStorage',
     'ngRoute',
+    'angular.filter',
 
     'foundation',
     'foundation.dynamicRouting',

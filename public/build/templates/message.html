@@ -1,5 +1,4 @@
 
-
 <div class="grid-block horizontal message-box">
 
   <div class="grid-block medium-3 vertical message">
@@ -11,27 +10,23 @@
         <a>New</a>
       </div>
     </div>
-    <div class="grid-block message-from"> Message 1</div>
-    <div class="grid-block message-from"> Message 2</div>
-    <div class="grid-block message-from"> Message 3</div>
-    <div class="grid-block message-from"> Message 4</div>
+    <div class="grid-block message-from" ng-repeat="message in allMessages | filter : userId | unique : 'to._id' || 'from._id'" ng-show="message.to._id != userId">{{ message.to.name}}</div>
   </div>
 
-  <div class="grid-block medium-9 vertical message" >
-    <div class="message-content vertical clearfix" ng-repeat="message in allMessages | filter : userId">
-      <div>{{message.createdAt}}
-      </div>
+  <div class="grid-block medium-9 vertical message">
+    <div class="message-content vertical clearfix" ng-repeat="message in allMessages | filter : userId" ng-style="messageOwner">
+      <div class="created-at">{{message.createdAt}}</div>
         <div class="grid-block horizontal">
           <div class="grid-block">{{message.to.name}}</div>
           <div class="grid-block">{{message.from.name}}</div>
         </div>
-          <div>
-            <div class="content-text">{{message.content}}</div>
-          </div>
+      <div class="message-content-text">
+          <div class="content-text">{{message.content}}</div>
+      </div>
     </div>
-    <form>
-      <input type="text" ng-model="message.content">
-      <a class="signup button" ng-click="sendMessage(message)"> Send Message
+    <form class="messageInput">
+      <input type="text" ng-model="newmessage.content" class="message" placeholder="Type in a message...">
+      <a class="signup button" ng-click="sendMessage(newmessage)"> Send Message
       </a>
     </form>
 

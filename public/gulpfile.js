@@ -43,6 +43,7 @@ var paths = {
   'bower_components/angular-base64-upload/dist/angular-base64-upload.min.js',
   'bower_components/angular-animate/angular-animate.js',
  	'bower_components/angular-route/angular-route.min.js',
+  'bower_components/angular-filter/dist/angular-filter.js',
   'bower_components/angular-ui-router/release/angular-ui-router.js',
   'bower_components/sweetalert/dist/sweetalert.min.js',
   'bower_components/ngstorage/ngStorage.min.js',

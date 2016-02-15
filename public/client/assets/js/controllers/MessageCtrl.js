@@ -37,9 +37,8 @@
       console.log(err)
     })
 
-    $scope.sendMessage = function(message) {
+    $scope.sendMessage = function(newmessage) {
       console.log("message.content", message.content);
-
       // MessageSvc.sendMessages();
       // .then(function(resp) {
       //   console.log(resp.data);
