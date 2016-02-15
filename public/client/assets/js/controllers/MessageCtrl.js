@@ -36,8 +36,7 @@
     var filteredMessages = allMessages.filter ((message) => {
     return (message.to._id === id) || (message.from._id === id)
     });
-    
-    console.log("selectedPersonId", selectedPersonId);
+
     selectedPersonId = id;
     $scope.allMessages = filteredMessages;
   }
@@ -54,32 +53,34 @@
       console.log(err)
     })
 
-  function loadSelectedMessages(selectedId) {
-    if (selectedId.to._id === userId) {
-      selectedPersonId = selectedId.from._id; 
-    } else {
-      selectedPersonId = selectedId.to._id;
+    function loadSelectedMessages(selectedId) {
+      if (selectedId.to._id === userId) {
+        selectedPersonId = selectedId.from._id; 
+      } else {
+        selectedPersonId = selectedId.to._id;
+      }
+
+      var filteredMessages = allMessages.filter ((message) => {
+        return (message.to._id === selectedPersonId) || (message.from._id === selectedPersonId)
+      });
+
+      $scope.allMessages = filteredMessages;
     }
 
-    var filteredMessages = allMessages.filter ((message) => {
-      return (message.to._id === selectedPersonId) || (message.from._id === selectedPersonId)
-    });
-
-    console.log("selectedPersonId", selectedPersonId);
-    $scope.allMessages = filteredMessages;
-  }
-
-
-
-    // $scope.sendMessage = function(newmessage) {
-    //   console.log("message.content", message.content);
-    //   MessageSvc.sendMessages();
-    //   .then(function(resp) {
-    //     console.log(resp.data);
-    //   })
-    //   .catch(function(err) {
-    //     console.log(err);
-    //   })
-    // }
+    $scope.sendMessage = function(newmessage) {
+      var newMessageObj = {
+        to: selectedPersonId,
+        from: userId,
+        content: newmessage.content
+      }
+console.log("newMessageObj", newMessageObj);
+      MessageSvc.sendMessage(newMessageObj)
+      .then(function(resp) {
+        console.log(resp.data);
+      })
+      .catch(function(err) {
+        console.log(err);
+      })
+    }
   }
 })();

@@ -13,8 +13,10 @@ let router = express.Router();
 router.post('/addmessage', (req, res) => {
   User.checkUserForMessage(req.body.to, req.body.from, (err, foundUsers) => {
     if (err || !foundUsers) return res.status(400).send(err || 'Cannot get two users data');
+    console.log("foundUsers is here", foundUsers);
     Message.addMessage(req.body, foundUsers, (err, savedNewMessage) => {
       if (err || !savedNewMessage) return res.status(400).send(err || 'Cannot save new message');
+      console.log('savedNewMessage is here', savedNewMessage);
       res.json(savedNewMessage);
     });
   });

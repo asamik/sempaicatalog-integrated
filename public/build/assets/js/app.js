@@ -35,142 +35,6 @@
   }
 })();
 
-angular.module('application').directive('errorMessage', errorMessage);
-
-errorMessage.$inject = ['UserSvc'];
-
-function errorMessage(UserSvc) {
-  return {
-    restrict: "AE",
-    templateUrl: "templates/errorMessage.html",
-    scope: {
-      type: "@",
-    },
-    controller: function($scope, $timeout) {
-      'use strict';
-      var errormessages = { 
-        0: "Email address already in use",
-        1: "そのメールアドレスは既に登録されています。",
-        2: "Incorrect email or password",
-        3: "メールアドレスまたはパスワードが一致しません。"
-      }
-
-      $scope.$on('error', function(event, error) {
-        if ($scope.type === error.type) {
-          if( error.data == "email is already in use") {
-            if(!UserSvc.currentLanguage || (UserSvc.currentLanguage !== UserSvc.american)) {
-              $scope.message = errormessages[0];
-            } else  { 
-              $scope.message = errormessages[1];
-            }            
-          } else {
-            if(!UserSvc.currentLanguage || (UserSvc.currentLanguage !== UserSvc.american)) {
-              $scope.message = errormessages[2];
-            } else  { 
-              $scope.message = errormessages[3];
-            }
-          }          
-          $scope.hasError = true;
-          $timeout(function() {
-            $scope.hasError = false;
-          }, 2500);
-        }
-      })
-    }
-  }
-}
-
-angular.module('application').directive('routeLoadingIndicator', routeLoadingIndicator);
-
-routeLoadingIndicator.$inject = ['$rootScope'];
-
-function routeLoadingIndicator($rootScope) {
-	return {
-		restrict: 'E',
-		template: "<h1 ng-if='isRouteLoading'> Loading...<h1>",
-		link: function(scope) {
-			scope.isRouteLoading = false;
-
-			$rootScope.$on('$routeChangeStart', function() {
-				scope.isRouteLoading = true;
-			});
-
-			$rootScope.$on('$routeChangeSuccess', function() {
-				scope.isRouteLoading = false;
-			});
-		}
-	};
-};
-
-angular.module('application').directive('speakerCard', speakerCard);
-
-function speakerCard() {
-  return {
-    restrict: "AE",
-    templateUrl: "templates/speakerCard.html",
-    scope: {
-      user: "@"
-    },
-    controller: function($scope, UserSvc, $state) {
-      'use strict';
-      $scope.data = JSON.parse($scope.user);
-    }
-  }
-}
-
-angular.module('application').directive('userRow', userRow);
-
-function userRow() {
-  return {
-    restrict: "A",
-    templateUrl: "templates/userRow.html",
-    scope: {
-      data: "@"
-    },
-    controller: function(AdminSvc, $scope, $http) {
-      'use strict';
-      $scope.user = JSON.parse($scope.data);
-      $scope.updatedUser = JSON.parse($scope.data);
-
-      function populateUsers() {
-        $scope.$emit('populateUsers');
-      }
-
-      $scope.makeAdmin = function(user){
-        AdminSvc.makeAdmin(user)
-          .then(function(res) {
-          populateUsers();
-          console.log('Updated to admin successfully', res);
-        }).catch(function(err) {
-          console.error(err);
-        })
-      }
-
-      $scope.removeUser = function(user) {
-        AdminSvc.removeUser(user)
-          .then(function(res) {
-            populateUsers();
-            console.log('deleted user');
-          })
-          .catch(function(err) {
-            console.log('err', err);
-          });
-      }
-
-      $scope.editUser = function() {
-        AdminSvc.editUser($scope.updatedUser)
-          .then(function(res) {
-            populateUsers();
-            console.log('updated user');
-          })
-          .catch(function(err) {
-            console.log('err', err);
-          });
-      }
-    }
-  };
-}
-
 (function() {
 	'use strict';
 
@@ -363,8 +227,7 @@ function userRow() {
     var filteredMessages = allMessages.filter ((message) => {
     return (message.to._id === id) || (message.from._id === id)
     });
-    
-    console.log("selectedPersonId", selectedPersonId);
+
     selectedPersonId = id;
     $scope.allMessages = filteredMessages;
   }
@@ -381,33 +244,35 @@ function userRow() {
       console.log(err)
     })
 
-  function loadSelectedMessages(selectedId) {
-    if (selectedId.to._id === userId) {
-      selectedPersonId = selectedId.from._id; 
-    } else {
-      selectedPersonId = selectedId.to._id;
+    function loadSelectedMessages(selectedId) {
+      if (selectedId.to._id === userId) {
+        selectedPersonId = selectedId.from._id; 
+      } else {
+        selectedPersonId = selectedId.to._id;
+      }
+
+      var filteredMessages = allMessages.filter ((message) => {
+        return (message.to._id === selectedPersonId) || (message.from._id === selectedPersonId)
+      });
+
+      $scope.allMessages = filteredMessages;
     }
 
-    var filteredMessages = allMessages.filter ((message) => {
-      return (message.to._id === selectedPersonId) || (message.from._id === selectedPersonId)
-    });
-
-    console.log("selectedPersonId", selectedPersonId);
-    $scope.allMessages = filteredMessages;
-  }
-
-
-
-    // $scope.sendMessage = function(newmessage) {
-    //   console.log("message.content", message.content);
-    //   MessageSvc.sendMessages();
-    //   .then(function(resp) {
-    //     console.log(resp.data);
-    //   })
-    //   .catch(function(err) {
-    //     console.log(err);
-    //   })
-    // }
+    $scope.sendMessage = function(newmessage) {
+      var newMessageObj = {
+        to: selectedPersonId,
+        from: userId,
+        content: newmessage.content
+      }
+console.log("newMessageObj", newMessageObj);
+      MessageSvc.sendMessage(newMessageObj)
+      .then(function(resp) {
+        console.log(resp.data);
+      })
+      .catch(function(err) {
+        console.log(err);
+      })
+    }
   }
 })();
 
@@ -732,6 +597,42 @@ function userRow() {
 })();
 
 (function() {
+  'use strict';
+
+angular.module('application').filter('messageFilter', messageFilter);
+
+messageFilter.$inject = ['$rootScope', 'UserSvc'];
+  var filteredId = [];
+  var filtered = [];
+
+  function messageFilter($rootScope, UserSvc) {
+    return function(messages) {
+      var userId = $rootScope.id;
+      messages.forEach((message) => {
+        if (((message.to._id === userId)  ||  (message.from._id === userId)) && 
+          ((filteredId.indexOf(message.to._id) === -1 && filteredId.indexOf(message.from._id) === -1))) {
+          if(message.to._id === userId) {
+            filteredId.push(message.from._id);
+            filtered.push({
+              id: message.from._id,
+              name: message.from.name
+            });
+          } else {
+            filteredId.push(message.to._id);
+            filtered.push({
+              id: message.to._id,
+              name: message.to.name
+            });
+          }
+        }
+      })
+
+      return filtered;
+    }
+  };
+})();
+
+(function() {
 	"use strict";
 
 	angular.module("application").service('SweetAlertSvc', SweetAlertSvc);
@@ -879,13 +780,13 @@ function userRow() {
     var url = "http://localhost:3000";
     // var url = 'https://lit-hamlet-87436.herokuapp.com';
 
-  this.loadAllMessages = function() {
-    return $http.get(url + '/messages');
-  }
-  this.sendMessage = function() {
-    return $http.post(url + '/messages/addmessage', message);
-  }
-
+    this.loadAllMessages = function() {
+      return $http.get(url + '/messages');
+    }
+    this.sendMessage = function(message) {
+console.log("messagein MsgSvc", message);
+      return $http.post(url + '/messages/addmessage', message);
+    }
   }
 })();
 
@@ -951,39 +852,138 @@ function userRow() {
   }
 })();
 
-(function() {
-  'use strict';
+angular.module('application').directive('errorMessage', errorMessage);
 
-angular.module('application').filter('messageFilter', messageFilter);
+errorMessage.$inject = ['UserSvc'];
 
-messageFilter.$inject = ['$rootScope', 'UserSvc'];
-  var filteredId = [];
-  var filtered = [];
+function errorMessage(UserSvc) {
+  return {
+    restrict: "AE",
+    templateUrl: "templates/errorMessage.html",
+    scope: {
+      type: "@",
+    },
+    controller: function($scope, $timeout) {
+      'use strict';
+      var errormessages = { 
+        0: "Email address already in use",
+        1: "そのメールアドレスは既に登録されています。",
+        2: "Incorrect email or password",
+        3: "メールアドレスまたはパスワードが一致しません。"
+      }
 
-  function messageFilter($rootScope, UserSvc) {
-    return function(messages) {
-      var userId = $rootScope.id;
-      messages.forEach((message) => {
-        if (((message.to._id === userId)  ||  (message.from._id === userId)) && 
-          ((filteredId.indexOf(message.to._id) === -1 && filteredId.indexOf(message.from._id) === -1))) {
-          if(message.to._id === userId) {
-            filteredId.push(message.from._id);
-            filtered.push({
-              id: message.from._id,
-              name: message.from.name
-            });
+      $scope.$on('error', function(event, error) {
+        if ($scope.type === error.type) {
+          if( error.data == "email is already in use") {
+            if(!UserSvc.currentLanguage || (UserSvc.currentLanguage !== UserSvc.american)) {
+              $scope.message = errormessages[0];
+            } else  { 
+              $scope.message = errormessages[1];
+            }            
           } else {
-            filteredId.push(message.to._id);
-            filtered.push({
-              id: message.to._id,
-              name: message.to.name
-            });
-          }
+            if(!UserSvc.currentLanguage || (UserSvc.currentLanguage !== UserSvc.american)) {
+              $scope.message = errormessages[2];
+            } else  { 
+              $scope.message = errormessages[3];
+            }
+          }          
+          $scope.hasError = true;
+          $timeout(function() {
+            $scope.hasError = false;
+          }, 2500);
         }
       })
+    }
+  }
+}
 
-      console.log("filteredList", UserSvc.filteredList);
-      return filtered;
+angular.module('application').directive('routeLoadingIndicator', routeLoadingIndicator);
+
+routeLoadingIndicator.$inject = ['$rootScope'];
+
+function routeLoadingIndicator($rootScope) {
+	return {
+		restrict: 'E',
+		template: "<h1 ng-if='isRouteLoading'> Loading...<h1>",
+		link: function(scope) {
+			scope.isRouteLoading = false;
+
+			$rootScope.$on('$routeChangeStart', function() {
+				scope.isRouteLoading = true;
+			});
+
+			$rootScope.$on('$routeChangeSuccess', function() {
+				scope.isRouteLoading = false;
+			});
+		}
+	};
+};
+
+angular.module('application').directive('speakerCard', speakerCard);
+
+function speakerCard() {
+  return {
+    restrict: "AE",
+    templateUrl: "templates/speakerCard.html",
+    scope: {
+      user: "@"
+    },
+    controller: function($scope, UserSvc, $state) {
+      'use strict';
+      $scope.data = JSON.parse($scope.user);
+    }
+  }
+}
+
+angular.module('application').directive('userRow', userRow);
+
+function userRow() {
+  return {
+    restrict: "A",
+    templateUrl: "templates/userRow.html",
+    scope: {
+      data: "@"
+    },
+    controller: function(AdminSvc, $scope, $http) {
+      'use strict';
+      $scope.user = JSON.parse($scope.data);
+      $scope.updatedUser = JSON.parse($scope.data);
+
+      function populateUsers() {
+        $scope.$emit('populateUsers');
+      }
+
+      $scope.makeAdmin = function(user){
+        AdminSvc.makeAdmin(user)
+          .then(function(res) {
+          populateUsers();
+          console.log('Updated to admin successfully', res);
+        }).catch(function(err) {
+          console.error(err);
+        })
+      }
+
+      $scope.removeUser = function(user) {
+        AdminSvc.removeUser(user)
+          .then(function(res) {
+            populateUsers();
+            console.log('deleted user');
+          })
+          .catch(function(err) {
+            console.log('err', err);
+          });
+      }
+
+      $scope.editUser = function() {
+        AdminSvc.editUser($scope.updatedUser)
+          .then(function(res) {
+            populateUsers();
+            console.log('updated user');
+          })
+          .catch(function(err) {
+            console.log('err', err);
+          });
+      }
     }
   };
-})();
+}

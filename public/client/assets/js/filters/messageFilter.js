@@ -29,7 +29,6 @@ messageFilter.$inject = ['$rootScope', 'UserSvc'];
         }
       })
 
-      console.log("filteredList", UserSvc.filteredList);
       return filtered;
     }
   };

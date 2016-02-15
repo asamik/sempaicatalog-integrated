@@ -17,12 +17,16 @@ let messageSchema = mongoose.Schema({
 });
 
 messageSchema.statics.addMessage = function(message, foundUsers, cb) {
+  console.log("message", message);
+
   let newMessage = new Message ({
     to: message.to,
     from: message.from,
     content: message.content,
     createdAt: moment().format('llll')
   });
+
+console.log("newMessage", newMessage);
 
   newMessage.save((err, savedNewMessage) => {
     if (err || !savedNewMessage) return cb(err || "savedNewMessage is empty");
@@ -36,6 +40,7 @@ messageSchema.statics.addMessage = function(message, foundUsers, cb) {
       fromUserName: foundUsers.fromUserName,
       fromUserEmail: foundUsers.fromUserEmail
     }
+console.log("savedNewMessage is here", savedNewMessage);
 
   //add mailgun to receiver here
 

@@ -9,12 +9,12 @@
     var url = "http://localhost:3000";
     // var url = 'https://lit-hamlet-87436.herokuapp.com';
 
-  this.loadAllMessages = function() {
-    return $http.get(url + '/messages');
-  }
-  this.sendMessage = function() {
-    return $http.post(url + '/messages/addmessage', message);
-  }
-
+    this.loadAllMessages = function() {
+      return $http.get(url + '/messages');
+    }
+    this.sendMessage = function(message) {
+console.log("messagein MsgSvc", message);
+      return $http.post(url + '/messages/addmessage', message);
+    }
   }
 })();
