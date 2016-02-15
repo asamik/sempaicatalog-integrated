@@ -15,11 +15,11 @@ controller: MessageCtrl
         <a>New</a>
       </div>
     </div>
-    <div class="grid-block message-from" ng-repeat="message in allMessages | messageFilter" ng-click="loadPersonalMessage(message._id)">{{message.name}}</div>
+    <div class="grid-block message-from" ng-repeat="pm in listOfMessages | messageFilter" ng-click="loadPersonalMessage(pm.id)">{{pm.name}}</div>
   </div>
 
   <div class="grid-block medium-9 vertical message">
-    <div class="message-content vertical clearfix" ng-repeat="message in allMessages | filter : userId" ng-style="messageOwner">
+    <div class="message-content vertical clearfix" ng-repeat="message in allMessages | filter: userId" ng-style="messageOwner">
       <div class="created-at">{{message.createdAt}}</div>
         <div class="grid-block horizontal">
           <div class="grid-block">{{message.to.name}}</div>

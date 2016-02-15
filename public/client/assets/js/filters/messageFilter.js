@@ -3,14 +3,13 @@
 
 angular.module('application').filter('messageFilter', messageFilter);
 
-messageFilter.$inject = ['$rootScope'];
+messageFilter.$inject = ['$rootScope', 'UserSvc'];
   var filteredId = [];
   var filtered = [];
 
-  function messageFilter($rootScope) {
+  function messageFilter($rootScope, UserSvc) {
     return function(messages) {
       var userId = $rootScope.id;
-      
       messages.forEach((message) => {
         if (((message.to._id === userId)  ||  (message.from._id === userId)) && 
           ((filteredId.indexOf(message.to._id) === -1 && filteredId.indexOf(message.from._id) === -1))) {
@@ -28,8 +27,10 @@ messageFilter.$inject = ['$rootScope'];
             });
           }
         }
-      });
+      })
+
+      console.log("filteredList", UserSvc.filteredList);
       return filtered;
-    };
+    }
   };
 })();

@@ -16,6 +16,8 @@
 
     this.currentLanguage;
 
+    this.filteredList;
+
     this.checkEmail = function(email){
     	return $http.post(url + '/users/checkemail', {email: email});
     }
