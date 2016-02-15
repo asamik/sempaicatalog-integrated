@@ -20,6 +20,6 @@
         }
         return response || $q.when(response);
       }
-    };
+    }
   };
 })();

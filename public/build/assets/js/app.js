@@ -218,6 +218,10 @@
 
     $scope.allMessages = [];
 
+
+
+
+//load all messages with userid in filtered and userId in rootscope
     MessageSvc.loadAllMessages()
     .then(function(resp) {
       var allMessages = resp.data;
@@ -561,224 +565,6 @@
 	}
 })();
 
-(function() {
-	"use strict";
-
-	angular.module("application").service('SweetAlertSvc', SweetAlertSvc);
-	function SweetAlertSvc() {
-    this.noBlankEditJP = function() {
-      swal({
-        title:"空欄に変更はできません", 
-        type: "warning",
-        confirmButtonColor: "#304476",
-        confirmButtonText: "OK",
-        timer: 1500
-      })
-    }
-    
-    this.noBlankEditEN = function() {
-      swal({
-        title:"You cannot change these fields to blank.",
-        type: "warning",
-        confirmButtonColor: "#304476",
-        confirmButtonText: "OK",
-        timer: 1500
-      })
-    }
-
-		this.japanese = function(category) {
-			if (category === 'sempai') {
-				swal({
-					title: "ご関心をお持ちいただき<br>ありがとうございます!",   
-					text: "「Sempai」として登録を完了するには<br>管理者の承認が必要です。このまま本登録の手続きに進んでしょうか？",
-					html: true,
-					type: "info",   
-					showCancelButton: true,   
-					confirmButtonColor: "#DEBC37",   
-					confirmButtonText: "OK",   
-					closeOnConfirm: false 
-				}, 
-				function(){
-					swal({
-						title:"仮登録をいたしました", 
-						text: "このまま本登録にお進みください。", 
-						confirmButtonColor: "#DEBC37",
-						timer: 1000          
-					})         
-				})  
-			} else {
-				swal({
-					title: "ご関心をお持ちいただき<br>ありがとうございます!",   
-					text: "教員の方としてこのままご本登録のお手続きに<br>進んでよろしいでしょうか？",
-					html: true,
-					type: "info",
-					showCancelButton: true,   
-					confirmButtonColor: "#DEBC37",   
-					confirmButtonText: "OK",   
-					closeOnConfirm: false 
-				}, 
-				function(){
-					swal({
-						title:"仮登録をいたしました", 
-						text: "このまま本登録にお進みください。", 
-						confirmButtonColor: "#DEBC37",
-						timer: 1000
-					})
-				})        
-			}	
-		}
-
-		this.american = function(category) {
-			if (category === 'sempai') {
-				swal({
-					title: "Thank you for pre-registering!",   
-					text: "You will need permission of administrator to fully register.<br>Are you sure you want to proceed?",
-					html: true,
-					type: "info",   
-					showCancelButton: true,   
-					confirmButtonColor: "#DEBC37",   
-					confirmButtonText: "Yes!",   
-					closeOnConfirm: false 
-				},
-				function(){
-					swal({
-						title:"Preregistration Complete.", 
-						text: "Please proceed to complete the registration", 
-						confirmButtonColor: "#DEBC37",
-						timer: 1000          
-					})         
-				})  
-			} else {
-				swal({
-					title: "Thank you for<br>registering with us!",   
-					text: "Are you sure you want to <br>proceed as a teacher?",
-					html: true,
-					type: "info",
-					showCancelButton: true,   
-					confirmButtonColor: "#DEBC37",   
-					confirmButtonText: "Yes!",   
-					closeOnConfirm: false 
-				},
-				function(){
-					swal({
-						title:"Preregistration Complete", 
-						text: "Please proceed to complete the registration", 
-						confirmButtonColor: "#DEBC37",
-						timer: 1000
-					})
-				})        
-			}	
-		}
-	}
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('application').factory('authInterceptor', authInterceptor);
-
-  authInterceptor.$inject = ['$rootScope', '$q', '$window'];
-
-  function authInterceptor($rootScope, $q, $window) {
-    return {
-      request: function (config) {
-        config.headers = config.headers || {};
-        if ($rootScope.token) {
-          config.headers.Authorization = 'Bearer ' + $rootScope.token;
-        }
-        return config;
-      },
-      response: function (response) {
-        if (response.status === 401) {
-          console.log('user not authenticated')
-        }
-        return response || $q.when(response);
-      }
-    };
-  };
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('application').service('MessageSvc', MessageSvc);
-
-  MessageSvc.$inject = ['$http'];
-
-  function MessageSvc($http) {
-    var url = "http://localhost:3000";
-    // var url = 'https://lit-hamlet-87436.herokuapp.com';
-
-  this.loadAllMessages = function() {
-    return $http.get(url + '/messages');
-  }
-  this.sendMessage = function() {
-    return $http.post(url + '/messages/addmessage', message);
-  }
-
-  }
-})();
-
-(function() {
-	'use strict';
-
-	angular.module('application').service('UserSvc', UserSvc);
-
-	UserSvc.$inject = ['$http'];
-
-	function UserSvc($http) {
-		this.userInfo = null;
-
-    var url = "http://localhost:3000";
-    // var url = 'https://lit-hamlet-87436.herokuapp.com';
-
-    this.japanese = "sempai-catalog-project/assets/css/image/japan.png";
-    this.american = "sempai-catalog-project/assets/css/image/us-flag.png";
-
-    this.currentLanguage;
-
-    this.checkEmail = function(email){
-    	return $http.post(url + '/users/checkemail', {email: email});
-    }
-
-    this.register = function(newUser){
-    	return $http.post(url + '/users/register', newUser);
-    }
-
-    this.login = function(info) {
-    	return $http.post(url + '/users/login', info);
-    }
-
-    this.getUserInfo = function(id) {
-    	return $http.get(url + '/users/' + id);
-    }
-
-    this.getUserInfoUnpopulated = function(id) {
-    	return $http.get(url + '/users/unpopulated/' + id);
-    }
-
-    this.getAllSpeakers = function(){
-    	return $http.get(url + '/users');
-    }
-
-    this.getSpeakerInfo = function(speakerid) {
-    	return $http.get(url + '/users/speaker/' + speakerid);
-    }
-
-    this.registerspeaker = function(speakerdetail) {
-    	return $http.post(url + "/users/speakerdetail/register/" + speakerdetail.id, speakerdetail)
-    }
-
-    this.updateSpeakerDetail = function(speakerdetail, speakerid) {
-    	return $http.put(url + "/users/editspeakerdetail/" + speakerid, speakerdetail);
-    }
-
-    this.updateUser = function(user) {
-    	return $http.put(url + "/users/edit/" + user._id, user);
-    }
-  }
-})();
-
 angular.module('application').directive('errorMessage', errorMessage);
 
 errorMessage.$inject = ['UserSvc'];
@@ -914,3 +700,257 @@ function userRow() {
     }
   };
 }
+
+(function() {
+  'use strict';
+
+angular.module('application').filter('messageFilter', messageFilter);
+
+messageFilter.$inject = ['$rootScope'];
+  var filteredId = [];
+  var filtered = [];
+
+  function messageFilter($rootScope) {
+    return function(messages) {
+      var userId = $rootScope.id;
+      
+      messages.forEach((message) => {
+        if (((message.to._id === userId)  ||  (message.from._id === userId)) && 
+          ((filteredId.indexOf(message.to._id) === -1 && filteredId.indexOf(message.from._id) === -1))) {
+          if(message.to._id === userId) {
+            filteredId.push(message.from._id);
+            filtered.push({
+              id: message.from._id,
+              name: message.from.name
+            });
+          } else {
+            filteredId.push(message.to._id);
+            filtered.push({
+              id: message.to._id,
+              name: message.to.name
+            });
+          }
+        }
+      });
+      return filtered;
+    };
+  };
+})();
+
+(function() {
+	"use strict";
+
+	angular.module("application").service('SweetAlertSvc', SweetAlertSvc);
+	function SweetAlertSvc() {
+    this.noBlankEditJP = function() {
+      swal({
+        title:"空欄に変更はできません", 
+        type: "warning",
+        confirmButtonColor: "#304476",
+        confirmButtonText: "OK",
+        timer: 1500
+      })
+    }
+    
+    this.noBlankEditEN = function() {
+      swal({
+        title:"You cannot change these fields to blank.",
+        type: "warning",
+        confirmButtonColor: "#304476",
+        confirmButtonText: "OK",
+        timer: 1500
+      })
+    }
+
+		this.japanese = function(category) {
+			if (category === 'sempai') {
+				swal({
+					title: "ご関心をお持ちいただき<br>ありがとうございます!",   
+					text: "「Sempai」として登録を完了するには<br>管理者の承認が必要です。このまま本登録の手続きに進んでしょうか？",
+					html: true,
+					type: "info",   
+					showCancelButton: true,   
+					confirmButtonColor: "#DEBC37",   
+					confirmButtonText: "OK",   
+					closeOnConfirm: false 
+				}, 
+				function(){
+					swal({
+						title:"仮登録をいたしました", 
+						text: "このまま本登録にお進みください。", 
+						confirmButtonColor: "#DEBC37",
+						timer: 1000          
+					})         
+				})  
+			} else {
+				swal({
+					title: "ご関心をお持ちいただき<br>ありがとうございます!",   
+					text: "教員の方としてこのままご本登録のお手続きに<br>進んでよろしいでしょうか？",
+					html: true,
+					type: "info",
+					showCancelButton: true,   
+					confirmButtonColor: "#DEBC37",   
+					confirmButtonText: "OK",   
+					closeOnConfirm: false 
+				}, 
+				function(){
+					swal({
+						title:"仮登録をいたしました", 
+						text: "このまま本登録にお進みください。", 
+						confirmButtonColor: "#DEBC37",
+						timer: 1000
+					})
+				})        
+			}	
+		}
+
+		this.american = function(category) {
+			if (category === 'sempai') {
+				swal({
+					title: "Thank you for pre-registering!",   
+					text: "You will need permission of administrator to fully register.<br>Are you sure you want to proceed?",
+					html: true,
+					type: "info",   
+					showCancelButton: true,   
+					confirmButtonColor: "#DEBC37",   
+					confirmButtonText: "Yes!",   
+					closeOnConfirm: false 
+				},
+				function(){
+					swal({
+						title:"Preregistration Complete.", 
+						text: "Please proceed to complete the registration", 
+						confirmButtonColor: "#DEBC37",
+						timer: 1000          
+					})         
+				})  
+			} else {
+				swal({
+					title: "Thank you for<br>registering with us!",   
+					text: "Are you sure you want to <br>proceed as a teacher?",
+					html: true,
+					type: "info",
+					showCancelButton: true,   
+					confirmButtonColor: "#DEBC37",   
+					confirmButtonText: "Yes!",   
+					closeOnConfirm: false 
+				},
+				function(){
+					swal({
+						title:"Preregistration Complete", 
+						text: "Please proceed to complete the registration", 
+						confirmButtonColor: "#DEBC37",
+						timer: 1000
+					})
+				})        
+			}	
+		}
+	}
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('application').factory('authInterceptor', authInterceptor);
+
+  authInterceptor.$inject = ['$rootScope', '$q', '$window'];
+
+  function authInterceptor($rootScope, $q, $window) {
+    return {
+      request: function (config) {
+        config.headers = config.headers || {};
+        if ($rootScope.token) {
+          config.headers.Authorization = 'Bearer ' + $rootScope.token;
+        }
+        return config;
+      },
+      response: function (response) {
+        if (response.status === 401) {
+          console.log('user not authenticated')
+        }
+        return response || $q.when(response);
+      }
+    }
+  };
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('application').service('MessageSvc', MessageSvc);
+
+  MessageSvc.$inject = ['$http'];
+
+  function MessageSvc($http) {
+    var url = "http://localhost:3000";
+    // var url = 'https://lit-hamlet-87436.herokuapp.com';
+
+  this.loadAllMessages = function() {
+    return $http.get(url + '/messages');
+  }
+  this.sendMessage = function() {
+    return $http.post(url + '/messages/addmessage', message);
+  }
+
+  }
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('application').service('UserSvc', UserSvc);
+
+	UserSvc.$inject = ['$http'];
+
+	function UserSvc($http) {
+		this.userInfo = null;
+
+    var url = "http://localhost:3000";
+    // var url = 'https://lit-hamlet-87436.herokuapp.com';
+
+    this.japanese = "sempai-catalog-project/assets/css/image/japan.png";
+    this.american = "sempai-catalog-project/assets/css/image/us-flag.png";
+
+    this.currentLanguage;
+
+    this.checkEmail = function(email){
+    	return $http.post(url + '/users/checkemail', {email: email});
+    }
+
+    this.register = function(newUser){
+    	return $http.post(url + '/users/register', newUser);
+    }
+
+    this.login = function(info) {
+    	return $http.post(url + '/users/login', info);
+    }
+
+    this.getUserInfo = function(id) {
+    	return $http.get(url + '/users/' + id);
+    }
+
+    this.getUserInfoUnpopulated = function(id) {
+    	return $http.get(url + '/users/unpopulated/' + id);
+    }
+
+    this.getAllSpeakers = function(){
+    	return $http.get(url + '/users');
+    }
+
+    this.getSpeakerInfo = function(speakerid) {
+    	return $http.get(url + '/users/speaker/' + speakerid);
+    }
+
+    this.registerspeaker = function(speakerdetail) {
+    	return $http.post(url + "/users/speakerdetail/register/" + speakerdetail.id, speakerdetail)
+    }
+
+    this.updateSpeakerDetail = function(speakerdetail, speakerid) {
+    	return $http.put(url + "/users/editspeakerdetail/" + speakerid, speakerdetail);
+    }
+
+    this.updateUser = function(user) {
+    	return $http.put(url + "/users/edit/" + user._id, user);
+    }
+  }
+})();

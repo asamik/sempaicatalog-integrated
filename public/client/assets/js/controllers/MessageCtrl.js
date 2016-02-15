@@ -27,6 +27,10 @@
 
     $scope.allMessages = [];
 
+
+
+
+//load all messages with userid in filtered and userId in rootscope
     MessageSvc.loadAllMessages()
     .then(function(resp) {
       var allMessages = resp.data;
